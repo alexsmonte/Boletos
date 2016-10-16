@@ -35,6 +35,17 @@ class Utilitario
         return $dias;
     }
 
+
+    /**
+     * @param null $valor
+     * @return bool|mixed
+     */
+    public function formatarValor($valor)
+    {
+        return str_replace(['.',',',' '], "", $valor);
+    }
+
+
     /***
      *
      *
