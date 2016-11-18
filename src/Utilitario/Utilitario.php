@@ -1,7 +1,5 @@
 <?php
-
-
-namespace Asmpkg\Boleto;
+namespace Asmpkg\Boleto\Utilitario;
 
 
 class Utilitario
@@ -80,7 +78,7 @@ class Utilitario
         $numero =   strrev($numero);
         $i  = 0;
 
-        while($i <= strlen($numero)){
+        while($i <= strlen($numero)-1){
             $soma += ($numero{$i} * $fator);
             $fator = $fator >= 9? 2:($fator+1);
             $i++;
