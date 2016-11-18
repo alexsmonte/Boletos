@@ -84,7 +84,7 @@ class Utilitario
             $i++;
         }
 
-        return 11 - ($soma % 11);
+        return in_array(($soma % 11), ['0','10'])?'0':11 - ($soma % 11);
     }
 
     /***
@@ -127,7 +127,7 @@ class Utilitario
             $i++;
         }
 
-        return 10 - ($soma % 10);
+        return in_array(($soma % 10), ['0'])?'0':11 - ($soma % 10);
     }
 
 }
