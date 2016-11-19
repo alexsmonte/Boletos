@@ -120,7 +120,7 @@ class Utilitario
         $soma = 0;
         $i  = 0;
 
-        while($i <= strlen($numero)){
+        while($i <= strlen($numero)-1){
             $resultado = $numero{$i} * $multiplicador;
             $soma += $resultado > 9 ? ($resultado - 9) : $resultado;
             $multiplicador = $multiplicador == 2 ? 1 : 2;
