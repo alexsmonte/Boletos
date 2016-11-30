@@ -1,32 +1,41 @@
 <?php
 
-namespace Asmpkg\Boleto;
-use Asmpkg\Boleto\Utilitario;
+namespace Asmpkg\Boleto\Banco;
 
+use Asmpkg\Boleto\Utilitario\Utilitario;
+use Asmpkg\Boleto\BoletoInterface;
 
 class Santander extends Utilitario implements BoletoInterface
 {
 
-    const BANCO =   "353";
+    const BANCO =   "033";
     const MOEDA =   9;
 
     private $nossoNumero        =   null;
     private $codigoCedente      =   null;
     private $carteira           =   null;
     private $dvCodigoBarras     =   null;
+    private $fatorVencimento;
     private $valor;
+
+    public function __construct()
+    {
+        return $this;
+    }
+
     /*
      * Número do PSK(Código do Cliente)
      */
     public function codigoCedente($codigoCedente)
     {
+
         $this->codigoCedente    =   $codigoCedente;
         return $this;
     }
 
     /*
      * Tipo de Modalidade Carteira
-     * 101-Cobrança Simples Rápida COM Registro
+     * 101- Cobrança Simples Rápida COM Registro
      * 102- Cobrança simples SEM Registro
      * 201- Penhor
      */
@@ -59,6 +68,13 @@ class Santander extends Utilitario implements BoletoInterface
         return $this;
     }
 
+    public function vencimento($vencimento)
+    {
+        $this->fatorVencimento =   $this->fatorVencimento($vencimento);
+
+    }
+
+
     public function linhaDigitavel()
     {
         return $this->primeiroGrupo().$this->segundoGrupo().$this->terceiroGrupo().$this->quartoGrupo().$this->quintoGrupo();
@@ -69,7 +85,7 @@ class Santander extends Utilitario implements BoletoInterface
         $banco  =   static::BANCO;
         $moeda  =   static::MOEDA;
         //Fixo 9 e 00000 IOF fixo 0
-        return $banco.$moeda.$this->dvCodigoBarras.$this->fatorVencimento.str_pad($this->formatarValor($this->valor), 10, "0", STR_PAD_LEFT)."9".$this->codigoCedente."00000".$this->nossoNumero."0".$this->carteira;
+        return $banco.$moeda.$this->dvCodigoBarras.$this->fatorVencimento.str_pad($this->formatarValor($this->valor), 10, "0", STR_PAD_LEFT)."9".$this->codigoCedente.$this->nossoNumero."0".$this->carteira;
     }
 
 
@@ -88,7 +104,6 @@ class Santander extends Utilitario implements BoletoInterface
         $dv =   $this->modulo10($primeiroGrupo);
 
         $linhaDigitavel =   $primeiroGrupo.$dv;
-
         return  $linhaDigitavel;
     }
     /**
