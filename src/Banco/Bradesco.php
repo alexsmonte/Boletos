@@ -1,6 +1,6 @@
 <?php
 
-namespace Asmpkg\Boleto;
+namespace Asmpkg\Boleto\Banco;
 use Asmpkg\Boleto\Utilitario\Utilitario;
 
 class Bradesco extends Utilitario implements BoletoInterface
