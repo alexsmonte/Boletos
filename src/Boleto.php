@@ -13,10 +13,21 @@ class Boleto
 
     public function __construct ($banco)
     {
-        $namespace  =    new ReflectionClass("Asmpkg\\Boleto\\Banco\\".$banco);
-        $this->banco      =    $namespace->newInstance();
+        $namespace      =    new ReflectionClass("Asmpkg\\Boleto\\Banco\\".$banco);
+        $this->banco    =    $namespace->newInstance();
     }
 
+    public function conta($conta)
+    {
+        $this->banco->conta($conta);
+        return $this;
+    }
+
+    public function agencia($agencia)
+    {
+        $this->banco->agencia($agencia);
+        return $this;
+    }
 
     public function codigoCedente($codigoCedente)
     {
