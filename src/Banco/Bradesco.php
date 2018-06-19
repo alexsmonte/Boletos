@@ -2,6 +2,7 @@
 
 namespace Asmpkg\Boleto\Banco;
 use Asmpkg\Boleto\Utilitario\Utilitario;
+use Asmpkg\Boleto\BoletoInterface;
 
 class Bradesco extends Utilitario implements BoletoInterface
 {
