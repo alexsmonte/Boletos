@@ -10,7 +10,7 @@ class Boleto
     private $banco;
     public $vencimento;
     public $valor;
-    public $codigoBarra;
+    public $codigoBarras;
     public $linhaDigitavel;
     public $agencia;
     public $conta;
@@ -77,7 +77,8 @@ class Boleto
 
     public function codigoBarras()
     {
-        return $this->banco->codigoBarras();
+        $this->codigoBarras =   $this->banco->codigoBarras();
+        return $this;
     }
 
     private function esquerda($entra, $comp)
