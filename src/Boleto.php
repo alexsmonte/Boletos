@@ -10,6 +10,11 @@ class Boleto
     private $banco;
     public $vencimento;
     public $valor;
+    public $codigoBarra;
+    public $linhaDigitavel;
+    public $agencia;
+    public $conta;
+    public $nossoNumero;
 
     public function __construct($banco)
     {
@@ -19,12 +24,15 @@ class Boleto
 
     public function conta($conta)
     {
+        $this->conta    =   $conta;
+
         $this->banco->conta($conta);
         return $this;
     }
 
     public function agencia($agencia)
     {
+        $this->agencia  =   $agencia;
         $this->banco->agencia($agencia);
         return $this;
     }
@@ -44,6 +52,7 @@ class Boleto
     public function nossoNumero($nossoNumero)
     {
         $this->banco->nossoNumero($nossoNumero);
+        $this->nossoNumero  =  $this->banco->nossoNumero;
         return $this;
     }
 
