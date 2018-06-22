@@ -9,11 +9,13 @@ class Bradesco extends Utilitario implements BoletoInterface
     const BANCO =   "237";
     const MOEDA =   9;
 
+    private $dvCodigoBarras;
     private $codigoCedente;
     public $valor;
     public $nossoNumero;
     public $agencia;
     public $conta;
+
 
     public function __construct()
     {
@@ -239,7 +241,15 @@ class Bradesco extends Utilitario implements BoletoInterface
 
     public function codigoBarras()
     {
-        // TODO: Implement codigoBarras() method.
+        $banco  =   static::BANCO;
+        $moeda  =   static::MOEDA;
+
+        $codigoBarras   =   $banco.$moeda.$this->fatorVencimento.str_pad($this->formatarValor($this->valor), 10, "0", STR_PAD_LEFT).$this->campoLivre();
+
+        $dv     =   $this->dvCodigoBarras   =   $this->digitoVerificadoCodigoBarras($codigoBarras);
+
+        return $banco.$moeda.$dv.$this->fatorVencimento.str_pad($this->formatarValor($this->valor), 10, "0", STR_PAD_LEFT).$this->campoLivre();
+
     }
 
     public function linhaDigitavel()
