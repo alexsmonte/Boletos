@@ -72,7 +72,8 @@ class Boleto
 
     public function linhaDigitavel()
     {
-        return $this->banco->linhaDigitavel();
+        $linhaDigitavel = $this->banco->linhaDigitavel();
+        return $this;
     }
 
     public function codigoBarras()
