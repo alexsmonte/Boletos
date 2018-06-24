@@ -72,7 +72,7 @@ class Boleto
 
     public function linhaDigitavel()
     {
-        $linhaDigitavel = $this->banco->linhaDigitavel();
+        $this->linhaDigitavel   = $this->banco->linhaDigitavel();
         return $this;
     }
 
