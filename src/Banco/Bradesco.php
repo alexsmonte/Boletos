@@ -22,6 +22,11 @@ class Bradesco extends Utilitario implements BoletoInterface
         return $this;
     }
 
+    public function codigoBanco()
+    {
+        return BANCO;
+    }
+
     public function codigoCedente($codigoCedente)
     {
         $this->codigoCedente    =   $codigoCedente;
