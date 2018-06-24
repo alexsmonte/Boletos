@@ -8,6 +8,7 @@ class Boleto
     const VERSION = '0.1';
 
     private $banco;
+    public $codigoBanco;
     public $vencimento;
     public $valor;
     public $codigoBarras;
@@ -20,6 +21,12 @@ class Boleto
     {
         $namespace = new ReflectionClass("Asmpkg\\Boleto\\Banco\\" . $banco);
         $this->banco = $namespace->newInstance();
+    }
+
+    public function codigoBanco()
+    {
+        $this->codigoBanco =   $this->banco->codigoBanco();
+        return $this;
     }
 
     public function conta($conta)
