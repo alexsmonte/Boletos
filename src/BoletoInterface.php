@@ -6,6 +6,7 @@ namespace Asmpkg\Boleto;
 interface BoletoInterface
 {
 
+    public function codigoBanco();
     public function codigoCedente($codigoCedente);
     public function carteira($carteira);
     public function nossoNumero($nossoNumero);
