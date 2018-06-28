@@ -9,12 +9,15 @@ class Bradesco extends Utilitario implements BoletoInterface
     const BANCO =   "237";
     const MOEDA =   9;
 
-    private $dvCodigoBarras;
-    private $codigoCedente;
-    public $valor;
-    public $nossoNumero;
+    private $nossoNumero        =   null;
+    private $codigoCedente      =   null;
+    private $carteira           =   null;
+    private $dvCodigoBarras     =   null;
+    private $fatorVencimento    =   "0000";
+    private $valor              =   "0,00";
     public $agencia;
     public $conta;
+
 
 
     public function __construct()
@@ -24,7 +27,7 @@ class Bradesco extends Utilitario implements BoletoInterface
 
     public function codigoBanco()
     {
-        return static::BANCO."-2";
+        return static::BANCO;
     }
 
     public function codigoCedente($codigoCedente)
@@ -33,12 +36,6 @@ class Bradesco extends Utilitario implements BoletoInterface
         return $this;
     }
 
-/*
- * Tipo de Modalidade Carteira
- * 101- Cobrança Simples Rápida COM Registro
- * 102- Cobrança simples SEM Registro
- * 201- Penhor
- */
     public function carteira($carteira)
     {
         $this->carteira =   $carteira;

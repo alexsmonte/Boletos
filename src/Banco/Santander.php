@@ -15,12 +15,17 @@ class Santander extends Utilitario implements BoletoInterface
     private $codigoCedente      =   null;
     private $carteira           =   null;
     private $dvCodigoBarras     =   null;
-    private $fatorVencimento;
-    private $valor;
+    private $fatorVencimento    =   "0000";
+    private $valor              =   "0,00";
 
     public function __construct()
     {
         return $this;
+    }
+
+    public function codigoBanco()
+    {
+        return static::BANCO;
     }
 
     /*
@@ -28,7 +33,6 @@ class Santander extends Utilitario implements BoletoInterface
      */
     public function codigoCedente($codigoCedente)
     {
-
         $this->codigoCedente    =   $codigoCedente;
         return $this;
     }
@@ -77,7 +81,7 @@ class Santander extends Utilitario implements BoletoInterface
 
     public function linhaDigitavel()
     {
-        return $this->primeiroGrupo().$this->segundoGrupo().$this->terceiroGrupo().$this->quartoGrupo().$this->quintoGrupo();
+        return $this->primeiroCampo().$this->segundoCampo().$this->terceiroCampo().$this->quartoCampo().$this->quintoCampo();
     }
 
     public function codigoBarras()
@@ -90,65 +94,65 @@ class Santander extends Utilitario implements BoletoInterface
 
 
     /**
-     * Referente ao primeiro grupo da linha digitavel da posicao 01 a 10
+     * Referente ao primeiro Campo da linha digitavel da posicao 01 a 10
      */
-    private function primeiroGrupo()
+    private function primeiroCampo()
     {
 
         $banco  =   static::BANCO;
         $moeda  =   static::MOEDA;
 
         //Fixo “9”
-        $primeiroGrupo  =   $banco.$moeda."9".substr($this->codigoCedente, 0, 4);
+        $primeiroCampo  =   $banco.$moeda."9".substr($this->codigoCedente, 0, 4);
 
-        $dv =   $this->modulo10($primeiroGrupo);
+        $dv =   $this->modulo10($primeiroCampo);
 
-        $linhaDigitavel =   $primeiroGrupo.$dv;
+        $linhaDigitavel =   $primeiroCampo.$dv;
         return  $linhaDigitavel;
     }
     /**
-     * Referente ao segundo grupo da linha digitavel da posicao 11 a 21
+     * Referente ao segundo Campo da linha digitavel da posicao 11 a 21
      */
-    private function segundoGrupo()
+    private function segundoCampo()
     {
-        $segundoGrupo   =   substr($this->codigoCedente, 4, strlen($this->codigoCedente)).substr($this->nossoNumero, 0, 7);
-        $dv =   $this->modulo10($segundoGrupo);
+        $segundoCampo   =   substr($this->codigoCedente, 4, strlen($this->codigoCedente)).substr($this->nossoNumero, 0, 7);
+        $dv =   $this->modulo10($segundoCampo);
 
-        $linhaDigitavel =   $segundoGrupo.$dv;
+        $linhaDigitavel =   $segundoCampo.$dv;
         return $linhaDigitavel;
     }
     /**
-     * Referente ao terceiro grupo da linha digitavel da posicao 22 a 32
+     * Referente ao terceiro Campo da linha digitavel da posicao 22 a 32
      */
-    private function terceiroGrupo()
+    private function terceiroCampo()
     {
         /*
          * Foi fixado 0 (ZERO) entretanto, para Seguradoras (Se 7% informar 7, limitado a 9%)
          */
-        $terceiroGrupo  =   substr($this->nossoNumero, 7, strlen($this->nossoNumero))."0".$this->carteira;
-        $dv =   $this->modulo10($terceiroGrupo);
+        $terceiroCampo  =   substr($this->nossoNumero, 7, strlen($this->nossoNumero))."0".$this->carteira;
+        $dv =   $this->modulo10($terceiroCampo);
 
-        $linhaDigitavel =   $terceiroGrupo.$dv;
+        $linhaDigitavel =   $terceiroCampo.$dv;
         return $linhaDigitavel;
     }
     /**
-     * Referente ao quarto grupo da linha digitavel da posicao 33
+     * Referente ao quarto Campo da linha digitavel da posicao 33
      */
-    private function quartoGrupo()
+    private function quartoCampo()
     {
         $banco  =   static::BANCO;
         $moeda  =   static::MOEDA;
         /*
          * Foi fixado 0 (ZERO) entretanto, para Seguradoras (Se 7% informar 7, limitado a 9%)
          */
-        $quartoGrupo    =   $banco.$moeda.$this->fatorVencimento.str_pad($this->formatarValor($this->valor), 10, "0", STR_PAD_LEFT)."9".$this->codigoCedente.$this->nossoNumero."0".$this->carteira;
-        $dv = $this->dvCodigoBarras    =   $this->modulo11($quartoGrupo);
+        $quartoCampo    =   $banco.$moeda.$this->fatorVencimento.str_pad($this->formatarValor($this->valor), 10, "0", STR_PAD_LEFT)."9".$this->codigoCedente.$this->nossoNumero."0".$this->carteira;
+        $dv = $this->dvCodigoBarras    =   $this->modulo11($quartoCampo);
         return $dv;
     }
     /**
-     * Referente ao quinto grupo da linha digitavel da posicao 34 a 47
+     * Referente ao quinto Campo da linha digitavel da posicao 34 a 47
      */
-    private function quintoGrupo()
+    private function quintoCampo()
     {
         return $this->fatorVencimento.str_pad($this->formatarValor($this->valor), 10, "0", STR_PAD_LEFT);
     }
