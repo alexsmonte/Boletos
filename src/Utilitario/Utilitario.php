@@ -127,7 +127,7 @@ class Utilitario
             $i++;
         }
 
-        return in_array(($soma % 10), ['0'])?'0':11 - ($soma % 10);
+        return in_array(($soma % 10), ['0'])?'0':10 - ($soma % 10);
     }
 
 }
