@@ -9,7 +9,7 @@ class Bradesco extends Utilitario implements BoletoInterface
     const BANCO =   "237";
     const MOEDA =   9;
 
-    private $nossoNumero        =   null;
+    public $nossoNumero        =   null;
     private $codigoCedente      =   null;
     private $carteira           =   null;
     private $dvCodigoBarras     =   null;
