@@ -42,9 +42,9 @@ class Santander extends Utilitario implements BoletoInterface
         return $this;
 
     }
-        /*
-         * Número do PSK(Código do Cliente)
-         */
+    /*
+     * Número do PSK(Código do Cliente)
+     */
     public function codigoCedente($codigoCedente)
     {
         $this->codigoCedente    =   $codigoCedente;
@@ -143,10 +143,11 @@ class Santander extends Utilitario implements BoletoInterface
         /*
          * Foi fixado 0 (ZERO) entretanto, para Seguradoras (Se 7% informar 7, limitado a 9%)
          */
+
         $terceiroCampo  =   substr($this->nossoNumero, 7, strlen($this->nossoNumero))."0".$this->carteira;
         $dv =   $this->modulo10($terceiroCampo);
-
         $linhaDigitavel =   $terceiroCampo.$dv;
+
         return $linhaDigitavel;
     }
     /**
