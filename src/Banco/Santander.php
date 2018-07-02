@@ -17,6 +17,8 @@ class Santander extends Utilitario implements BoletoInterface
     private $dvCodigoBarras     =   null;
     private $fatorVencimento    =   "0000";
     private $valor              =   "0,00";
+    public $agencia;
+    public $conta;
 
     public function __construct()
     {
@@ -28,9 +30,21 @@ class Santander extends Utilitario implements BoletoInterface
         return static::BANCO;
     }
 
-    /*
-     * Número do PSK(Código do Cliente)
-     */
+    public function agencia($agencia)
+    {
+        $this->agencia  =   $agencia;
+        return $this;
+    }
+
+    public function conta($conta)
+    {
+        $this->conta  =   $conta;
+        return $this;
+
+
+        /*
+         * Número do PSK(Código do Cliente)
+         */
     public function codigoCedente($codigoCedente)
     {
         $this->codigoCedente    =   $codigoCedente;
