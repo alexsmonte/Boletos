@@ -38,10 +38,10 @@ class Santander extends Utilitario implements BoletoInterface
 
     public function conta($conta)
     {
-        $this->conta  =   $conta;
+        $this->conta = $conta;
         return $this;
 
-
+    }
         /*
          * Número do PSK(Código do Cliente)
          */
