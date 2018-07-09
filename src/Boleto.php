@@ -58,8 +58,7 @@ class Boleto
 
     public function nossoNumero($nossoNumero)
     {
-        $this->banco->nossoNumero($nossoNumero);
-        $this->nossoNumero  =  $this->banco->nossoNumero;
+        $this->nossoNumero  =  $this->banco->nossoNumero($nossoNumero);
         return $this;
     }
 
