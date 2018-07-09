@@ -73,7 +73,7 @@ class Bradesco extends Utilitario implements BoletoInterface
     public function nossoNumero($nossoNumero)
     {
         $this->nossoNumero  =   str_pad($nossoNumero, 11, "0", STR_PAD_LEFT);
-        return $this;
+        return $this->nossoNumero."-".$this->digitoVerificadoNossoNumero($this->nossoNumero);
     }
 
     /***
