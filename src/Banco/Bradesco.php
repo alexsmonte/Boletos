@@ -30,6 +30,15 @@ class Bradesco extends Utilitario implements BoletoInterface
         return static::BANCO;
     }
 
+    /***
+     * AGÊNCIA / CÓDIGO DO CEDENTE:
+     * Deverá ser preenchido com a agência com 4(quatro caracteres) -
+     * digito da agência / Conta de Cobrança com 7(sete) caracteres - Digito da Conta.
+     * Ex. 9999-D/9999999-D
+     *
+     * @param $codigoCedente
+     * @return $this
+     */
     public function codigoCedente($codigoCedente)
     {
         $this->codigoCedente    =   $codigoCedente;
