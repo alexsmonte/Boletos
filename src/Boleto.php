@@ -220,7 +220,7 @@ class Boleto
 
     public function header($codigoBeneficiario, $empresaBeneficiario, $numeroSequencial, $numeroLinha)
     {
-        return $this->banco->header($codigoBeneficiario, $empresaBeneficiario, $numeroSequencial, $numeroLinha)
+        return $this->banco->header($codigoBeneficiario, $empresaBeneficiario, $numeroSequencial, $numeroLinha);
     }
 
     public function  transacao($dados, $numeroLinha)
