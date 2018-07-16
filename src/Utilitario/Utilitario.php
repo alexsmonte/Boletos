@@ -163,4 +163,27 @@ class Utilitario
         return $var;
     }
 
+    public  function complementoRegistro($int,$tipo)
+    {
+        if($tipo == "zeros")
+        {
+            $space = '';
+            for($i = 1; $i <= $int; $i++)
+            {
+                $space .= '0';
+            }
+        }
+        else if($tipo == "brancos")
+        {
+            $space = '';
+            for($i = 1; $i <= $int; $i++)
+            {
+                $space .= ' ';
+            }
+        }
+
+        return $space;
+    }
+
+
 }
