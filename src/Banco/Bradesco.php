@@ -11,7 +11,7 @@ class Bradesco extends Utilitario implements BoletoInterface
     const MOEDA =   9;
 
     public $nossoNumero        =   null;
-    private $codigoCedente      =   null;
+    public $codigoCedente      =   null;
     private $carteira           =   null;
     private $dvCodigoBarras     =   null;
     private $fatorVencimento    =   "0000";
@@ -42,7 +42,7 @@ class Bradesco extends Utilitario implements BoletoInterface
      * @param $codigoCedente
      * @return $this
      */
-    public function codigoCedente($codigoCedente)
+    public function codigoCedente($codigoCedente = null)
     {
         $this->codigoCedente    =   $this->agencia."-".$this->digitoAgencia."/".$this->conta."-".$this->digitoConta;
         return $this;

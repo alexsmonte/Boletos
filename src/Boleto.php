@@ -16,6 +16,7 @@ class Boleto
     public $agencia;
     public $conta;
     public $nossoNumero;
+    public $codigoCedente;
 
     public function __construct($banco)
     {
@@ -58,7 +59,7 @@ class Boleto
 
     public function codigoCedente($codigoCedente)
     {
-        $this->banco->codigoCedente($codigoCedente);
+        $this->codigoCedente    =   $this->banco->codigoCedente($codigoCedente);
         return $this;
     }
 
