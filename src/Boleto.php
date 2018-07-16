@@ -47,11 +47,13 @@ class Boleto
     public function digitoAgencia($digitoAgencia)
     {
         $this->banco->digitoAgencia($digitoAgencia);
+        return $this;
     }
 
     public function digitoConta($digitoConta)
     {
         $this->banco->digitoConta($digitoConta);
+        return $this;
     }
 
     public function codigoCedente($codigoCedente)
