@@ -218,4 +218,24 @@ class Boleto
     }
 
 
+    public function header($codigoBeneficiario, $empresaBeneficiario, $numeroSequencial, $numeroLinha)
+    {
+        return $this->banco->header($codigoBeneficiario, $empresaBeneficiario, $numeroSequencial, $numeroLinha)
+    }
+
+    public function  transacao($dados, $numeroLinha)
+    {
+        return $this->banco->transacao($dados, $numeroLinha);
+    }
+
+    public function trailler($numeroLinha)
+    {
+        return $this->banco->trailler($numeroLinha);
+    }
+
+    public function gerarArquivoRemessa($sequencial = '01', $teste = false)
+    {
+        return $this->banco->gerarArquivoRemessa($sequencial = '01', $teste = false)
+    }
+
 }
