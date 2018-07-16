@@ -313,7 +313,7 @@ class Bradesco extends Utilitario implements BoletoInterface
         $transacao  .=   '0';
 
         $transacao .= $this->picture_9(trim($dados["carteira"]),3);                              // 022 a 024 -> Codigo da carteira
-        $transacao .= $this->picture_9(trim(substr($dados["agencia"], 0, -2)),5);    // 025 a 029 -> Codigo da agencia cedente
+        $transacao .= $this->picture_9(substr(trim($dados["agencia"]), 0, -2),5);    // 025 a 029 -> Codigo da agencia cedente
         $transacao .= $this->picture_9(trim($dados["conta"]),7);                                 // 030 a 036 -> Conta corrente
         $transacao .= $this->picture_9(trim($dados["conta_dv"]),1);                              // 037 a 037 -> Digito da conta
 
