@@ -59,7 +59,8 @@ class Boleto
 
     public function codigoCedente($codigoCedente)
     {
-        $this->codigoCedente    =   $this->banco->codigoCedente($codigoCedente);
+        $this->banco->codigoCedente($codigoCedente);
+        $this->codigoCedente    =   $this->banco->codigoCedente;
         return $this;
     }
 
