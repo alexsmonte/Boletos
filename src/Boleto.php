@@ -51,7 +51,7 @@ class Boleto
 
     public function digitoConta($digitoConta)
     {
-        $this->banco->digitoAgencia($digitoConta);
+        $this->banco->digitoConta($digitoConta);
     }
 
     public function codigoCedente($codigoCedente)
