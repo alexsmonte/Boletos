@@ -143,7 +143,7 @@ class Utilitario
     */
     public  function picture_9($palavra,$limite){
 
-        $var=str_pad($palavra, $limite, "0", STR_PAD_LEFT);
+        $var=str_pad(preg_replace("/[^0-9]/", "", $palavra), $limite, "0", STR_PAD_LEFT);
         return $var;
     }
 
@@ -155,12 +155,14 @@ class Utilitario
     */
 
     public  function picture_x( $palavra, $limite ){
+        $palavra = $this->removerAcentos( $palavra );
+
+        if( strlen( $palavra ) >= $limite )
+            $palavra = substr( $palavra, 0, $limite );
+
         $var = str_pad( $palavra, $limite, " ", STR_PAD_RIGHT );
-        $var = $this->removerAcentos( $var );
-        if( strlen( $palavra ) >= $limite ){
-            $var = substr( $palavra, 0, $limite );
-        }
         $var = strtoupper( $var );// converte em letra maiuscula
+
         return $var;
     }
 
