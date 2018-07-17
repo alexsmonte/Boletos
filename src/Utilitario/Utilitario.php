@@ -143,7 +143,7 @@ class Utilitario
     */
     public  function picture_9($palavra,$limite){
 
-        $var=str_pad(preg_replace("/[^0-9]/", "", $palavra), $limite, "0", STR_PAD_LEFT);
+        $var=str_pad($palavra, $limite, "0", STR_PAD_LEFT);
         return $var;
     }
 
