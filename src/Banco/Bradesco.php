@@ -318,7 +318,7 @@ class Bradesco extends Utilitario implements BoletoInterface
         $transacao .= $this->picture_9(trim($dados["conta_dv"]),1);                              // 037 a 037 -> Digito da conta
 
         $transacao .= $this->picture_9(substr(trim($dados["numero_documento"]), 0, 9),25);   // 038 a 062 -> No. controle -> (livre e para uso da empresa - usei o num. docto )
-        $transacao .= $this->picture_9(trim($banco),1);                      // 063 a 065 -> Codigo do banco a ser debitado na camara de compensacao
+        $transacao .= $this->picture_9(trim($banco),3);                      // 063 a 065 -> Codigo do banco a ser debitado na camara de compensacao
         $transacao .= $this->picture_9(trim($dados["tipo_multa"]),1);                        // 066 a 066 -> Campo de multa. 2=percentual/1=em reais/0=sem multa
         $transacao .= $this->picture_9(trim($dados["valor_multa"]),4);                       // 067 a 070 -> Percentual ou valor da multa. Vide o tipo de multa no item acima.
         $transacao .= $this->picture_9(substr(trim($dados["nosso_numero"]), 0, 10),11);                     // 071 a 081 -> Identificacao do titulo no banco Nosso Numero
