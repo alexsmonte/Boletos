@@ -30,7 +30,7 @@ class Bradesco extends Utilitario implements BoletoInterface
 
     public function codigoBanco()
     {
-        return static::BANCO;
+        return static::BANCO."-2";
     }
 
     /***
