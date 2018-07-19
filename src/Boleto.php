@@ -238,4 +238,9 @@ class Boleto
         return $this->banco->gerarArquivoRemessa($sequencial, $teste = false);
     }
 
+    public function retorno($file)
+    {
+        return $this->banco->retorno($file);
+    }
+
 }
