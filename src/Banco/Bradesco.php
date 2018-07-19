@@ -363,4 +363,106 @@ class Bradesco extends Utilitario implements BoletoInterface
     {
         return "9".$this->complementoRegistro(393,"brancos").$this->picture_9($numeroLinha,6).chr(13).chr(10);
     }
+
+    public function retorno($file)
+    {
+        $fp = fopen($file, "rb");
+
+        $retorno = array();
+        $i = 0;
+        while (!feof ($fp))
+        {
+            $linha = fgets($fp, 9999);
+
+            //Lay-out do Arquivo-Retorno - Registro Header Label
+            if (substr($linha, 2, 7) == 'RETORNO')
+            {
+                $retorno["header"]["registro"]  =   trim(substr($linha, 0, 1));
+                $retorno["header"]["identificacao"]  =   trim(substr($linha, 1, 1));
+                $retorno["header"]["literal"]  =   trim(substr($linha, 2, 7));
+                $retorno["header"]["codigo_servico"]  =   trim(substr($linha, 9, 2));
+                $retorno["header"]["servico"]  =   trim(substr($linha, 11, 15));
+                $retorno["header"]["codigo_empresa"]    =   trim(substr($linha, 26, 20));
+                $retorno["header"]["nome_empresa"]      =   trim(substr($linha, 46, 30));
+                $retorno["header"]["codigo_banco"]      =   trim(substr($linha, 76, 3));
+                $retorno["header"]["nome_banco"]      	=   trim(substr($linha, 79, 15));
+                $retorno["header"]["data_gravacao_arquivo"]      	=   trim(substr($linha, 94, 2))."/".trim(substr($linha, 96, 2))."/".trim(substr($linha, 98, 2));
+                $retorno["header"]["densidade_gravacao"]      	=   trim(substr($linha, 100, 8));
+                $retorno["header"]["aviso_bancario"]    =   trim(substr($linha, 108, 5));
+                $retorno["header"]["branco_1"]    =   trim(substr($linha, 113, 266));
+                $retorno["header"]["data_credito"]    	=   trim(substr($linha, 379, 2))."/".trim(substr($linha, 381, 2))."/".trim(substr($linha, 383, 2));
+                $retorno["header"]["branco_2"]    =   trim(substr($linha, 385, 9));
+                $retorno["header"]["sequencial"]  =   trim(substr($linha, 394, 6));
+            }
+
+
+            if (trim(substr($linha, 0, 1)) == 9){
+                //implementar
+            }
+
+            //Lay-out do Arquivo-Retorno - Registro de Transação – Tipo 1
+            if (trim(substr($linha, 0, 1)) == 1)
+            {
+                $retorno["transacao"][$i]["registro"] = trim(substr($linha, 0, 1));
+                $retorno["transacao"][$i]["tipo_inscricao_empresa"] = trim(substr($linha, 1, 2));
+                $retorno["transacao"][$i]["inscricao_empresa"] = trim(substr($linha, 3, 14));
+                $retorno["transacao"][$i]["zeros"] = trim(substr($linha, 17, 3));
+                $retorno["transacao"][$i]["identificacao_empresa_cedente_banco"] = trim(substr($linha, 20, 17));
+
+                $retorno["transacao"][$i]["controle_participante"] = trim(substr($linha, 37, 25));
+                $retorno["transacao"][$i]["zeros_1"] = trim(substr($linha, 62, 8));
+                $retorno["transacao"][$i]["identificacao_titulo_1"] = trim(substr($linha, 70, 12));
+                $retorno["transacao"][$i]["uso_banco_1"] = trim(substr($linha, 82, 10));
+                $retorno["transacao"][$i]["uso_banco_2"] = trim(substr($linha, 92, 12));
+                $retorno["transacao"][$i]["indicador_rateio_credito"] = trim(substr($linha, 104, 1));
+                $retorno["transacao"][$i]["zeros_2"] = trim(substr($linha, 105, 2));
+                $retorno["transacao"][$i]["carteira"] = trim(substr($linha, 107, 1));
+                $retorno["transacao"][$i]["identificação_ocorrência"] = trim(substr($linha, 108, 2));
+                $retorno["transacao"][$i]["data_ocorrencia"] = trim(substr($linha, 110, 2)) . "/" . trim(substr($linha, 112, 2)) . "/" . trim(substr($linha, 114, 2));
+                $retorno["transacao"][$i]["numero_documento"] = trim(substr($linha, 116, 10));
+                $retorno["transacao"][$i]["identificacao_titulo_2"] = trim(substr($linha, 126, 20));
+                $retorno["transacao"][$i]["data_vencimento"] = trim(substr($linha, 146, 2)) . "/" . trim(substr($linha, 148, 2)) . "/" . trim(substr($linha, 150, 2));
+
+                $valor_titulo = (float)trim(substr($linha, 152, 13));
+                $valor_pago = (float)trim(substr($linha, 253, 13));
+
+                $retorno["transacao"][$i]["valor_titulo"] = substr($valor_titulo, 0, strlen($valor_titulo) - 2) . "." . substr($valor_titulo, -2);
+                $retorno["transacao"][$i]["banco_cobrador"] = trim(substr($linha, 165, 3));
+
+                $retorno["transacao"][$i]["banco_cobrador"] = trim(substr($linha, 165, 3));
+                $retorno["transacao"][$i]["agencia_cobradora"] = trim(substr($linha, 168, 5));
+                $retorno["transacao"][$i]["especie_titulo"] = trim(substr($linha, 173, 2));
+
+                $retorno["transacao"][$i]["valor_despesa"] = (float)trim(substr($linha, 175, 13));
+                $retorno["transacao"][$i]["outras_despesas"] = (float)trim(substr($linha, 188, 13));
+                $retorno["transacao"][$i]["juros_operacao_atraso"] = (float)trim(substr($linha, 201, 13));
+                $retorno["transacao"][$i]["IOF_devido"] = (float)trim(substr($linha, 214, 13));
+
+                $retorno["transacao"][$i]["valor_abatimento"] = (float)trim(substr($linha, 227, 13));
+                $retorno["transacao"][$i]["desconto_concedido"] = (float)trim(substr($linha, 240, 13));
+                $retorno["transacao"][$i]["valor_pago"] = substr($valor_pago, 0, strlen($valor_pago) - 2) . "." . substr($valor_pago, -2);
+                $retorno["transacao"][$i]["juros_mora"] = (float)trim(substr($linha, 266, 13));
+                $retorno["transacao"][$i]["outros_creditos"] = (float)trim(substr($linha, 279, 13));
+                $retorno["transacao"][$i]["brancos_1"] = trim(substr($linha, 292, 2));
+                $retorno["transacao"][$i]["motivo"] = trim(substr($linha, 294, 1));
+
+                $retorno["transacao"][$i]["data_credito"] = trim(substr($linha, 295, 2)) . "/" . trim(substr($linha, 297, 2)) . "/" . trim(substr($linha, 299, 2));
+                $retorno["transacao"][$i]["origem_pagamento"] = trim(substr($linha, 301, 3));
+                $retorno["transacao"][$i]["brancos_2"] = trim(substr($linha, 304, 10));
+
+                $retorno["transacao"][$i]["cheque_bradesco"] = trim(substr($linha, 314, 4));
+                $retorno["transacao"][$i]["motivos_rejeicoes"] = trim(substr($linha, 318, 10));
+                $retorno["transacao"][$i]["brancos_3"] = trim(substr($linha, 328, 40));
+
+                $retorno["transacao"][$i]["numero_cartorio"] = trim(substr($linha, 368, 2));
+                $retorno["transacao"][$i]["numero_protocolo"] = trim(substr($linha, 370, 10));
+                $retorno["transacao"][$i]["brancos_3"] = trim(substr($linha, 380, 14));
+                $retorno["transacao"][$i]["sequencial"] = trim(substr($linha, 394, 6));
+
+                $i++;
+            }
+        }
+
+        return $retorno;
+    }
 }
