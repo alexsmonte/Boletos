@@ -235,7 +235,7 @@ class Boleto
 
     public function gerarArquivoRemessa($sequencial = '01', $teste = false)
     {
-        return $this->banco->gerarArquivoRemessa($sequencial = '01', $teste = false);
+        return $this->banco->gerarArquivoRemessa($sequencial, $teste = false);
     }
 
 }
