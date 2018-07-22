@@ -1,2 +1,3 @@
 # Boletos
-Projeto para gerar boletos, remessa e ler o retorno do banco
+PROJETO DESCONTINUADO.
+NESSE REPOSITORIO https://github.com/eduardokum/laravel-boleto TEM TODOS OS BOLETOS PRONTO.
